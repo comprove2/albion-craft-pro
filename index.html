@@ -1,7 +1,6 @@
 ```html
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +8,19 @@
 <title>ALBION CRAFT PRO</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    background: #080808;
-    color: white;
     font-family: Arial, sans-serif;
+    background: #090909;
+    color: white;
 }
 
 .container {
-    width: 94%;
+    width: 95%;
     max-width: 1200px;
     margin: 30px auto;
 }
@@ -31,7 +29,6 @@ h1 {
     text-align: center;
     color: #f5b400;
     font-size: 40px;
-    margin-bottom: 5px;
 }
 
 .subtitulo {
@@ -48,20 +45,15 @@ h1 {
     margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #ccc;
-}
-
-input,
 select,
+input,
 button {
     width: 100%;
     padding: 14px;
+    margin-top: 8px;
     border-radius: 8px;
     border: 1px solid #333;
-    background: #0d0d0d;
+    background: #0c0c0c;
     color: white;
     font-size: 16px;
 }
@@ -70,8 +62,8 @@ button {
     margin-top: 20px;
     background: #d99b00;
     color: #111;
-    border: none;
     font-weight: bold;
+    border: none;
     cursor: pointer;
 }
 
@@ -79,76 +71,63 @@ button:hover {
     background: #f5b400;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 15px;
-}
-
-.item-box {
-    display: none;
+.item {
+    display: flex;
     align-items: center;
     gap: 20px;
-    background: #0d0d0d;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 15px;
     margin-top: 20px;
+    padding: 15px;
+    background: #0d0d0d;
+    border-radius: 10px;
 }
 
-.item-box img {
+.item img {
     width: 90px;
     height: 90px;
     object-fit: contain;
 }
 
-.item-nome {
-    font-size: 22px;
-    font-weight: bold;
+.item h2 {
+    margin: 0;
     color: #f5b400;
 }
 
-.item-id {
+.codigo {
     color: #777;
     font-size: 13px;
     margin-top: 5px;
 }
 
-.info {
-    margin-top: 15px;
-    color: #aaa;
-}
-
-.erro {
-    color: #ff5555;
+.mensagem {
     margin-top: 15px;
 }
 
 .sucesso {
     color: #5cff7a;
-    margin-top: 15px;
 }
 
-.resultado {
-    overflow-x: auto;
+.erro {
+    color: #ff5555;
+}
+
+.info {
+    color: #aaa;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 14px;
+    border-bottom: 1px solid #333;
+    text-align: left;
 }
 
 th {
     color: #f5b400;
-    text-align: left;
-    padding: 13px;
-    border-bottom: 1px solid #444;
-}
-
-td {
-    padding: 13px;
-    border-bottom: 1px solid #292929;
 }
 
 .preco {
@@ -156,22 +135,15 @@ td {
     font-weight: bold;
 }
 
-.sem-dados {
+.sem {
     color: #777;
 }
 
-@media(max-width: 700px) {
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
+@media(max-width:700px) {
     h1 {
         font-size: 28px;
     }
-
 }
-
 </style>
 </head>
 
@@ -182,29 +154,14 @@ td {
 <h1>ALBION CRAFT PRO</h1>
 
 <div class="subtitulo">
-Mercado • Craft • Lucro • Albion Online • Américas
+Mercado de Albion Online • Américas
 </div>
-
-
-<!-- =====================================================
-     SELEÇÃO DO ITEM
-===================================================== -->
 
 <div class="painel">
 
-<h2>Selecionar item</h2>
+<label>Escolha o item</label>
 
-<div class="grid">
-
-<div>
-
-<label>Item</label>
-
-<select id="itemSelect">
-
-<option value="">
-Selecione um item
-</option>
+<select id="item">
 
 <option value="T4_2H_CLAYMORE">
 Claymore T4
@@ -226,7 +183,6 @@ Claymore T7
 Claymore T8
 </option>
 
-
 <option value="T4_BAG">
 Bolsa T4
 </option>
@@ -247,158 +203,37 @@ Bolsa T7
 Bolsa T8
 </option>
 
-
-<option value="T4_CAPE">
-Capa T4
-</option>
-
-<option value="T5_CAPE">
-Capa T5
-</option>
-
-<option value="T6_CAPE">
-Capa T6
-</option>
-
-<option value="T7_CAPE">
-Capa T7
-</option>
-
-<option value="T8_CAPE">
-Capa T8
-</option>
-
-
-<option value="T4_METALBAR">
-Barra de Metal T4
-</option>
-
-<option value="T5_METALBAR">
-Barra de Metal T5
-</option>
-
-<option value="T6_METALBAR">
-Barra de Metal T6
-</option>
-
-<option value="T7_METALBAR">
-Barra de Metal T7
-</option>
-
-<option value="T8_METALBAR">
-Barra de Metal T8
-</option>
-
-
-<option value="T4_PLANKS">
-Prancha T4
-</option>
-
-<option value="T5_PLANKS">
-Prancha T5
-</option>
-
-<option value="T6_PLANKS">
-Prancha T6
-</option>
-
-<option value="T7_PLANKS">
-Prancha T7
-</option>
-
-<option value="T8_PLANKS">
-Prancha T8
-</option>
-
-
-<option value="T4_STONEBLOCK">
-Bloco de Pedra T4
-</option>
-
-<option value="T5_STONEBLOCK">
-Bloco de Pedra T5
-</option>
-
-<option value="T6_STONEBLOCK">
-Bloco de Pedra T6
-</option>
-
-<option value="T7_STONEBLOCK">
-Bloco de Pedra T7
-</option>
-
-<option value="T8_STONEBLOCK">
-Bloco de Pedra T8
-</option>
-
-
-<option value="T4_LEATHER">
-Couro T4
-</option>
-
-<option value="T5_LEATHER">
-Couro T5
-</option>
-
-<option value="T6_LEATHER">
-Couro T6
-</option>
-
-<option value="T7_LEATHER">
-Couro T7
-</option>
-
-<option value="T8_LEATHER">
-Couro T8
-</option>
-
 </select>
 
-</div>
 
-
-<div>
-
-<label>Qualidade</label>
+<label style="display:block;margin-top:15px;">
+Qualidade
+</label>
 
 <select id="qualidade">
 
 <option value="1">1 - Normal</option>
-<option value="2">2 - Boa</option>
-<option value="3">3 - Excepcional</option>
-<option value="4">4 - Excelente</option>
-<option value="5">5 - Obra-prima</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
 
 </select>
 
-</div>
 
+<div class="item">
 
-<div>
-
-<label>Quantidade</label>
-
-<input
-type="number"
-id="quantidade"
-value="1"
-min="1"
->
-
-</div>
-
-</div>
-
-
-<div class="item-box" id="itemBox">
-
-<img id="imagemItem">
+<img id="imagem">
 
 <div>
 
-<div class="item-nome" id="nomeItem"></div>
+<h2 id="nome">
+Claymore T4
+</h2>
 
-<div class="item-id" id="idItem"></div>
+<div class="codigo" id="codigo">
+T4_2H_CLAYMORE
+</div>
 
 </div>
 
@@ -409,46 +244,34 @@ min="1"
 BUSCAR PREÇOS REAIS
 </button>
 
-
-<div id="mensagem"></div>
+<div id="mensagem" class="mensagem"></div>
 
 </div>
 
 
-<!-- =====================================================
-     RESULTADOS
-===================================================== -->
+<div class="painel">
 
-<div class="painel resultado">
-
-<h2>Preços do mercado</h2>
+<h2>Preços nas cidades</h2>
 
 <table>
 
 <thead>
 
 <tr>
-
 <th>Cidade</th>
-
 <th>Venda mínima</th>
-
 <th>Venda máxima</th>
-
 <th>Atualização</th>
-
 </tr>
 
 </thead>
 
-<tbody id="tabela">
+<tbody id="resultado">
 
 <tr>
-
-<td colspan="4" class="sem-dados">
-Selecione um item para começar.
+<td colspan="4" class="sem">
+Clique em BUSCAR PREÇOS REAIS.
 </td>
-
 </tr>
 
 </tbody>
@@ -462,126 +285,71 @@ Selecione um item para começar.
 
 <script>
 
-
-/* =====================================================
-   ITEM SELECIONADO
-===================================================== */
-
 const itemSelect =
-document.getElementById("itemSelect");
-
-
-itemSelect.addEventListener(
-"change",
-mostrarItem
-);
-
-
-function mostrarItem() {
-
-const id = itemSelect.value;
-
-const box =
-document.getElementById("itemBox");
+document.getElementById("item");
 
 const imagem =
-document.getElementById("imagemItem");
+document.getElementById("imagem");
 
 const nome =
-document.getElementById("nomeItem");
+document.getElementById("nome");
 
 const codigo =
-document.getElementById("idItem");
+document.getElementById("codigo");
 
 
-if (!id) {
+function atualizarItem() {
 
-box.style.display = "none";
+const id =
+itemSelect.value;
 
-return;
+const texto =
+itemSelect.options[
+itemSelect.selectedIndex
+].text;
 
-}
-
-
-let nomeItem =
-itemSelect.options[itemSelect.selectedIndex].text;
-
-
-nome.textContent = nomeItem;
+nome.textContent = texto;
 
 codigo.textContent = id;
-
-
-/*
-Imagem oficial do Render Albion
-*/
 
 imagem.src =
 "https://render.albiononline.com/v1/item/"
 + id
 + ".png";
 
-
-imagem.onerror = function() {
-
-this.src =
-"https://render.albiononline.com/v1/item/"
-+ id;
-
-};
-
-
-box.style.display = "flex";
-
 }
 
 
-/* =====================================================
-   BUSCAR PREÇOS
-===================================================== */
+itemSelect.addEventListener(
+"change",
+atualizarItem
+);
+
+atualizarItem();
+
 
 async function buscarPrecos() {
-
 
 const id =
 itemSelect.value;
 
-
 const qualidade =
 document.getElementById("qualidade").value;
 
-
-const quantidade =
-document.getElementById("quantidade").value;
-
-
-const tabela =
-document.getElementById("tabela");
-
+const resultado =
+document.getElementById("resultado");
 
 const mensagem =
 document.getElementById("mensagem");
 
 
-if (!id) {
-
 mensagem.innerHTML =
-'<div class="erro">Selecione um item primeiro.</div>';
+'<div class="info">Consultando mercado...</div>';
 
-return;
-
-}
-
-
-mensagem.innerHTML =
-'<div class="info">Consultando preços reais...</div>';
-
-
-tabela.innerHTML = "";
+resultado.innerHTML = "";
 
 
 const cidades = [
-
 "Bridgewatch",
 "Caerleon",
 "Fort Sterling",
@@ -589,32 +357,22 @@ const cidades = [
 "Martlock",
 "Thetford",
 "Brecilien"
-
 ];
 
 
-try {
-
-
 const url =
-
 "https://west.albion-online-data.com/api/v2/stats/prices/"
-
-+ encodeURIComponent(id)
-
++ id
 + ".json?locations="
-
-+ encodeURIComponent(
-cidades.join(",")
-)
-
++ cidades.join(",")
 + "&qualities="
-
 + qualidade;
 
 
-console.log(url);
+console.log("Consultando:", url);
 
+
+try {
 
 const resposta =
 await fetch(url);
@@ -634,49 +392,46 @@ await resposta.json();
 
 
 console.log(
-"Resposta da API:",
+"Resposta recebida:",
 dados
 );
 
 
-const mapa = {};
+if (!Array.isArray(dados)) {
+
+throw new Error(
+"Resposta inesperada da API"
+);
+
+}
 
 
-dados.forEach(item => {
-
-mapa[item.city] = item;
-
-});
-
-
-let menorPreco = null;
-
-let melhorCidade = "";
+let encontrou = false;
 
 
 cidades.forEach(cidade => {
 
-
-const item =
-mapa[cidade];
+const registro =
+dados.find(
+item => item.city === cidade
+);
 
 
 const linha =
 document.createElement("tr");
 
 
-if (!item) {
-
+if (!registro) {
 
 linha.innerHTML = `
 
 <td>${cidade}</td>
 
-<td class="sem-dados">
+<td class="sem">
 SEM DADOS
 </td>
 
-<td class="sem-dados">
+<td class="sem">
 SEM DADOS
 </td>
 
@@ -684,36 +439,19 @@ SEM DADOS
 
 `;
 
-
 } else {
+
+encontrou = true;
 
 
 const minimo =
-Number(
-item.sell_price_min || 0
-);
-
+registro.sell_price_min || 0;
 
 const maximo =
-Number(
-item.sell_price_max || 0
-);
+registro.sell_price_max || 0;
 
-
-if (
-minimo > 0 &&
-(
-menorPreco === null ||
-minimo < menorPreco
-)
-) {
-
-menorPreco = minimo;
-
-melhorCidade =
-cidade;
-
-}
+const data =
+registro.sell_price_min_date || "";
 
 
 linha.innerHTML = `
@@ -721,23 +459,15 @@ linha.innerHTML = `
 <td>${cidade}</td>
 
 <td class="preco">
-
 ${formatar(minimo)}
-
 </td>
 
 <td class="preco">
-
 ${formatar(maximo)}
-
 </td>
 
 <td>
-
-${formatarData(
-item.sell_price_min_date
-)}
-
+${formatarData(data)}
 </td>
 
 `;
@@ -745,88 +475,50 @@ item.sell_price_min_date
 }
 
 
-tabela.appendChild(linha);
-
+resultado.appendChild(linha);
 
 });
 
 
-if (menorPreco !== null) {
+if (encontrou) {
 
-
-mensagem.innerHTML = `
-
-<div class="sucesso">
-
-Menor preço encontrado:
-<strong>
-${formatar(menorPreco)} prata
-</strong>
-
-em
-
-<strong>
-${melhorCidade}
-</strong>
-
-<br>
-
-Quantidade:
-<strong>
-${quantidade}
-</strong>
-
-</div>
-
-`;
-
+mensagem.innerHTML =
+'<div class="sucesso">Preços encontrados com sucesso! ✅</div>';
 
 } else {
 
-
-mensagem.innerHTML = `
-
-<div class="erro">
-
-O item foi encontrado, mas a API não possui preço registrado para essas cidades/qualidade.
-
-</div>
-
-`;
-
+mensagem.innerHTML =
+'<div class="erro">O item existe, mas não há dados de mercado para essa qualidade nas cidades consultadas.</div>';
 
 }
 
 
 } catch (erro) {
 
-
-console.error(erro);
-
+console.error(
+"ERRO:",
+erro
+);
 
 mensagem.innerHTML = `
 
 <div class="erro">
 
-Erro ao consultar os preços.
+Erro ao consultar a API de preços.
 
 <br><br>
 
-Verifique o Console do navegador para mais detalhes.
+Erro:
+${erro.message}
 
 </div>
 
 `;
 
-
 }
 
 }
 
-
-/* =====================================================
-   FORMATAÇÃO
-===================================================== */
 
 function formatar(numero) {
 
@@ -850,17 +542,8 @@ return "-";
 
 }
 
-
-try {
-
 return new Date(data)
 .toLocaleString("pt-BR");
-
-} catch {
-
-return "-";
-
-}
 
 }
 
