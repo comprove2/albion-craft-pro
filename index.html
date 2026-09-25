@@ -1,0 +1,707 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ALBION CRAFT PRO</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0b0b0b;
+        color: white;
+    }
+
+    .container {
+        width: 95%;
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    h1 {
+        text-align: center;
+        color: #f5b400;
+        font-size: 38px;
+        margin-bottom: 5px;
+    }
+
+    .subtitulo {
+        text-align: center;
+        color: #aaa;
+        margin-bottom: 30px;
+    }
+
+    .painel {
+        background: #151515;
+        border: 1px solid #292929;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ccc;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 14px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #0d0d0d;
+        color: white;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 15px;
+        background: #d89b00;
+        color: #111;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+    }
+
+    button:hover {
+        background: #f5b400;
+    }
+
+    .busca {
+        position: relative;
+    }
+
+    #sugestoes {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #202020;
+        border: 1px solid #444;
+        border-radius: 0 0 10px 10px;
+        z-index: 100;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .sugestao {
+        padding: 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #333;
+    }
+
+    .sugestao:hover {
+        background: #333;
+    }
+
+    .item-selecionado {
+        display: none;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
+        padding: 15px;
+        background: #101010;
+        border-radius: 10px;
+        border: 1px solid #333;
+    }
+
+    .item-selecionado img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+    .item-nome {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .item-id {
+        color: #888;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .resultado {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th, td {
+        padding: 13px;
+        border-bottom: 1px solid #333;
+        text-align: left;
+    }
+
+    th {
+        color: #f5b400;
+    }
+
+    .sem-dados {
+        color: #777;
+    }
+
+    .preco {
+        color: #5cff7a;
+        font-weight: bold;
+    }
+
+    .erro {
+        color: #ff5555;
+        margin-top: 15px;
+    }
+
+    .status {
+        color: #aaa;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 700px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ALBION CRAFT PRO</h1>
+
+    <div class="subtitulo">
+        Calculadora de mercado • Albion Online • Américas
+    </div>
+
+    <div class="painel">
+
+        <div class="busca">
+
+            <label>Pesquisar item</label>
+
+            <input
+                type="text"
+                id="campoBusca"
+                placeholder="Digite o nome do item... exemplo: Claymore"
+                autocomplete="off"
+            >
+
+            <div id="sugestoes"></div>
+
+        </div>
+
+        <div class="item-selecionado" id="itemSelecionado">
+
+            <img id="imagemItem" src="" alt="Item">
+
+            <div>
+                <div class="item-nome" id="nomeItem"></div>
+                <div class="item-id" id="idItem"></div>
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <div>
+                <label>Qualidade</label>
+
+                <select id="qualidade">
+                    <option value="1">1 - Normal</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Quantidade</label>
+
+                <input
+                    type="number"
+                    id="quantidade"
+                    value="1"
+                    min="1"
+                >
+            </div>
+
+        </div>
+
+        <button onclick="buscarPrecos()">
+            BUSCAR PREÇOS REAIS
+        </button>
+
+        <div id="status" class="status"></div>
+        <div id="erro" class="erro"></div>
+
+    </div>
+
+    <div class="painel resultado">
+
+        <h2>Preços por cidade</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Cidade</th>
+                    <th>Venda mínima</th>
+                    <th>Venda máxima</th>
+                    <th>Atualização</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabelaPrecos">
+
+                <tr>
+                    <td colspan="4" class="sem-dados">
+                        Escolha um item para consultar.
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+const campoBusca = document.getElementById("campoBusca");
+const sugestoes = document.getElementById("sugestoes");
+
+let itemAtual = null;
+let timerBusca = null;
+
+
+/* =========================================================
+   BUSCA DE ITENS
+========================================================= */
+
+campoBusca.addEventListener("input", function() {
+
+    clearTimeout(timerBusca);
+
+    const texto = this.value.trim();
+
+    if (texto.length < 2) {
+
+        sugestoes.innerHTML = "";
+
+        return;
+    }
+
+    timerBusca = setTimeout(() => {
+
+        buscarItens(texto);
+
+    }, 500);
+
+});
+
+
+async function buscarItens(texto) {
+
+    sugestoes.innerHTML =
+        '<div class="sugestao">Procurando itens...</div>';
+
+    try {
+
+        const url =
+            "https://gameinfo.albiononline.com/api/gameinfo/items/search?search="
+            + encodeURIComponent(texto)
+            + "&limit=20";
+
+        const resposta = await fetch(url);
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                "Erro HTTP " + resposta.status
+            );
+
+        }
+
+        const dados = await resposta.json();
+
+        console.log("Itens encontrados:", dados);
+
+        if (!Array.isArray(dados) || dados.length === 0) {
+
+            sugestoes.innerHTML =
+                '<div class="sugestao">Nenhum item encontrado.</div>';
+
+            return;
+        }
+
+        sugestoes.innerHTML = "";
+
+        dados.forEach(item => {
+
+            const nome =
+                item.LocalizedNames?.["PT-BR"] ||
+                item.LocalizedNames?.["EN-US"] ||
+                item.Name ||
+                item.UniqueName ||
+                "Item sem nome";
+
+            const id =
+                item.UniqueName ||
+                item.Index ||
+                "";
+
+            if (!id) {
+                return;
+            }
+
+            const div = document.createElement("div");
+
+            div.className = "sugestao";
+
+            div.innerHTML = `
+                <strong>${nome}</strong>
+                <br>
+                <small style="color:#888">${id}</small>
+            `;
+
+            div.onclick = function() {
+
+                selecionarItem({
+                    nome: nome,
+                    id: id
+                });
+
+            };
+
+            sugestoes.appendChild(div);
+
+        });
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        sugestoes.innerHTML =
+            '<div class="sugestao" style="color:#ff5555">' +
+            'Erro ao consultar a busca.' +
+            '</div>';
+
+    }
+
+}
+
+
+/* =========================================================
+   SELECIONAR ITEM
+========================================================= */
+
+function selecionarItem(item) {
+
+    itemAtual = item;
+
+    campoBusca.value = item.nome;
+
+    sugestoes.innerHTML = "";
+
+    document.getElementById("itemSelecionado").style.display = "flex";
+
+    document.getElementById("nomeItem").textContent =
+        item.nome;
+
+    document.getElementById("idItem").textContent =
+        item.id;
+
+    const imagem =
+        "https://render.albiononline.com/v1/item/"
+        + encodeURIComponent(item.id)
+        + ".png";
+
+    document.getElementById("imagemItem").src = imagem;
+
+    document.getElementById("erro").textContent = "";
+
+}
+
+
+/* =========================================================
+   BUSCAR PREÇOS
+========================================================= */
+
+async function buscarPrecos() {
+
+    const tabela =
+        document.getElementById("tabelaPrecos");
+
+    const status =
+        document.getElementById("status");
+
+    const erro =
+        document.getElementById("erro");
+
+    tabela.innerHTML = "";
+
+    erro.textContent = "";
+
+    if (!itemAtual) {
+
+        erro.textContent =
+            "Primeiro pesquise e selecione um item.";
+
+        return;
+    }
+
+    const qualidade =
+        document.getElementById("qualidade").value;
+
+    const quantidade =
+        Number(document.getElementById("quantidade").value);
+
+    status.textContent =
+        "Consultando preços reais do mercado...";
+
+    const cidades = [
+        "Bridgewatch",
+        "Caerleon",
+        "Fort Sterling",
+        "Lymhurst",
+        "Martlock",
+        "Thetford",
+        "Brecilien"
+    ];
+
+    try {
+
+        const url =
+            "https://west.albion-online-data.com/api/v2/stats/prices/"
+            + encodeURIComponent(itemAtual.id)
+            + ".json?locations="
+            + cidades.map(encodeURIComponent).join(",")
+            + "&qualities="
+            + qualidade;
+
+        console.log("URL dos preços:", url);
+
+        const resposta = await fetch(url);
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                "Erro HTTP " + resposta.status
+            );
+
+        }
+
+        const dados = await resposta.json();
+
+        console.log("Preços:", dados);
+
+        const mapa = {};
+
+        if (Array.isArray(dados)) {
+
+            dados.forEach(registro => {
+
+                mapa[registro.city] = registro;
+
+            });
+
+        }
+
+        let menorPreco = null;
+        let cidadeMenor = "";
+
+        cidades.forEach(cidade => {
+
+            const registro = mapa[cidade];
+
+            const linha =
+                document.createElement("tr");
+
+            const tdCidade =
+                document.createElement("td");
+
+            tdCidade.textContent = cidade;
+
+            linha.appendChild(tdCidade);
+
+            if (
+                !registro ||
+                (
+                    registro.sell_price_min == null &&
+                    registro.sell_price_max == null
+                )
+            ) {
+
+                linha.innerHTML += `
+                    <td class="sem-dados">SEM DADOS</td>
+                    <td class="sem-dados">SEM DADOS</td>
+                    <td class="sem-dados">-</td>
+                `;
+
+            } else {
+
+                const minimo =
+                    Number(registro.sell_price_min || 0);
+
+                const maximo =
+                    Number(registro.sell_price_max || 0);
+
+                if (
+                    minimo > 0 &&
+                    (menorPreco === null ||
+                    minimo < menorPreco)
+                ) {
+
+                    menorPreco = minimo;
+
+                    cidadeMenor = cidade;
+
+                }
+
+                const dataAtualizacao =
+                    registro.sell_price_min_date ||
+                    registro.sell_price_max_date ||
+                    "";
+
+                linha.innerHTML += `
+                    <td class="preco">
+                        ${formatarNumero(minimo)}
+                    </td>
+
+                    <td class="preco">
+                        ${formatarNumero(maximo)}
+                    </td>
+
+                    <td>
+                        ${formatarData(dataAtualizacao)}
+                    </td>
+                `;
+
+            }
+
+            tabela.appendChild(linha);
+
+        });
+
+        if (menorPreco !== null) {
+
+            status.innerHTML =
+                "Menor preço encontrado: <strong>"
+                + formatarNumero(menorPreco)
+                + " prata</strong> em <strong>"
+                + cidadeMenor
+                + "</strong>.";
+
+        } else {
+
+            status.textContent =
+                "O item foi encontrado, mas não existem preços registrados nas cidades consultadas.";
+
+        }
+
+        console.log(
+            "Quantidade solicitada:",
+            quantidade
+        );
+
+    } catch (erroBusca) {
+
+        console.error(erroBusca);
+
+        status.textContent = "";
+
+        erro.textContent =
+            "Não foi possível consultar os preços. Veja o Console (F12) para detalhes.";
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMATAÇÃO
+========================================================= */
+
+function formatarNumero(numero) {
+
+    if (!numero || numero <= 0) {
+
+        return "-";
+
+    }
+
+    return Number(numero).toLocaleString("pt-BR");
+
+}
+
+
+function formatarData(data) {
+
+    if (!data) {
+
+        return "-";
+
+    }
+
+    try {
+
+        return new Date(data).toLocaleString("pt-BR");
+
+    } catch {
+
+        return data;
+
+    }
+
+}
+
+
+/* =========================================================
+   FECHAR SUGESTÕES AO CLICAR FORA
+========================================================= */
+
+document.addEventListener("click", function(event) {
+
+    if (
+        !event.target.closest(".busca")
+    ) {
+
+        sugestoes.innerHTML = "";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
