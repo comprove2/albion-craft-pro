@@ -1,562 +1,442 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ALBION CRAFT PRO</title>
+  <title>ALBION CRAFT PRO</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background:
-    radial-gradient(circle at top, #2b3547 0%, #121823 45%, #070a0f 100%);
-  color: #fff;
-  min-height: 100vh;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, #252525 0%, #111 45%, #050505 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
 
-header {
-  padding: 28px 20px;
-  text-align: center;
-  background: rgba(0,0,0,.35);
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
+    header {
+      text-align: center;
+      padding: 35px 15px 25px;
+      border-bottom: 1px solid #333;
+    }
 
-header h1 {
-  margin: 0;
-  color: #f0b90b;
-  font-size: 32px;
-  text-shadow: 0 0 18px rgba(240,185,11,.45);
-}
+    header h1 {
+      font-size: 42px;
+      font-weight: 900;
+      color: #f5b942;
+      text-shadow:
+        0 0 10px rgba(245,185,66,.5),
+        3px 3px 0 #6d4300;
+    }
 
-header p {
-  margin: 8px 0 0;
-  color: #aeb8c8;
-}
+    header p {
+      margin-top: 8px;
+      color: #aaa;
+      font-size: 15px;
+    }
 
-.container {
-  width: min(1150px, 94%);
-  margin: 30px auto;
-}
+    .container {
+      width: 95%;
+      max-width: 1400px;
+      margin: 30px auto;
+    }
 
-.search-box {
-  background: rgba(17,23,34,.97);
-  padding: 22px;
-  border-radius: 15px;
-  border: 1px solid #283244;
-  box-shadow: 0 15px 45px rgba(0,0,0,.35);
-}
+    .search-box {
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
 
-.search-title {
-  color: #f0b90b;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .search-box h2 {
+      margin-bottom: 15px;
+      color: #f5b942;
+    }
 
-.search-row {
-  display: flex;
-  gap: 10px;
-}
+    .search-line {
+      display: flex;
+      gap: 10px;
+    }
 
-#searchInput {
-  flex: 1;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #3b4659;
-  background: #0b1018;
-  color: #fff;
-  font-size: 16px;
-  outline: none;
-}
+    .search-line input {
+      flex: 1;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background: #0c0c0c;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
 
-#searchInput:focus {
-  border-color: #f0b90b;
-}
+    .search-line input:focus {
+      border-color: #f5b942;
+    }
 
-#searchButton {
-  padding: 0 25px;
-  border: none;
-  border-radius: 10px;
-  background: #f0b90b;
-  color: #111;
-  font-weight: bold;
-  cursor: pointer;
-}
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-#searchButton:hover {
-  background: #ffca28;
-}
+    .search-button {
+      padding: 0 25px;
+      border-radius: 10px;
+      background: #f5b942;
+      color: #111;
+    }
 
-.status {
-  margin-top: 10px;
-  color: #8290a5;
-  font-size: 13px;
-}
+    .search-button:hover {
+      background: #ffd16b;
+    }
 
-.filters {
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
+    #status {
+      margin-top: 15px;
+      color: #aaa;
+    }
 
-.filter-box label {
-  display: block;
-  color: #9da9bb;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
+    #results {
+      margin-top: 20px;
+    }
 
-.filter-box select {
-  width: 100%;
-  padding: 13px;
-  border-radius: 9px;
-  border: 1px solid #3a4659;
-  background: #0b1018;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-}
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #181818;
+      border: 1px solid #333;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: .2s;
+    }
 
-.filter-box select:focus {
-  border-color: #f0b90b;
-}
+    .result-item:hover {
+      border-color: #f5b942;
+      transform: translateX(3px);
+      background: #202020;
+    }
 
-.results {
-  margin-top: 15px;
-  display: grid;
-  gap: 8px;
-}
+    .result-item img {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+    }
 
-.item-option {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 12px;
-  background: #151d2b;
-  border: 1px solid #293548;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: .2s;
-}
+    .result-name {
+      font-weight: bold;
+    }
 
-.item-option:hover {
-  border-color: #f0b90b;
-  background: #1b2535;
-  transform: translateY(-1px);
-}
+    .result-id {
+      color: #777;
+      font-size: 12px;
+      margin-top: 3px;
+    }
 
-.item-option img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  background: #090d14;
-  border-radius: 8px;
-}
+    .selected-item {
+      margin-top: 25px;
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 25px;
+    }
 
-.item-name {
-  font-weight: bold;
-  font-size: 17px;
-}
+    .item-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
 
-.item-details {
-  margin-top: 5px;
-  color: #8995a8;
-  font-size: 12px;
-}
+    .item-header img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
 
-.selected {
-  margin-top: 25px;
-  background: rgba(17,23,34,.98);
-  padding: 25px;
-  border-radius: 15px;
-  border: 1px solid #293548;
-}
+    .item-header h2 {
+      color: #f5b942;
+      margin-bottom: 7px;
+    }
 
-.selected-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 22px;
-}
+    .item-id {
+      color: #777;
+      font-size: 13px;
+    }
 
-.selected-header img {
-  width: 105px;
-  height: 105px;
-  object-fit: contain;
-  background: #080c13;
-  border-radius: 12px;
-  border: 1px solid #344055;
-}
+    .section-title {
+      color: #f5b942;
+      margin: 20px 0 10px;
+      font-size: 17px;
+    }
 
-.selected-header h2 {
-  margin: 0;
-  color: #f0b90b;
-}
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-.selected-header p {
-  margin: 7px 0 0;
-  color: #8290a5;
-  font-size: 13px;
-}
+    .tier-button,
+    .enchant-button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #292929;
+      color: #ddd;
+      border: 1px solid #444;
+    }
 
-.market-controls {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+    .tier-button:hover,
+    .enchant-button:hover {
+      border-color: #f5b942;
+    }
 
-.market-controls select {
-  padding: 13px;
-  border-radius: 9px;
-  border: 1px solid #3a4659;
-  background: #0b1018;
-  color: #fff;
-}
+    .tier-button.active,
+    .enchant-button.active {
+      background: #f5b942;
+      color: #111;
+      border-color: #f5b942;
+    }
 
-.table-wrapper {
-  overflow-x: auto;
-}
+    .city-title {
+      margin-top: 30px;
+      color: #f5b942;
+      font-size: 20px;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 850px;
-}
+    .loading {
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+    }
 
-th {
-  padding: 14px;
-  background: #202a3a;
-  color: #f0b90b;
-  text-align: left;
-}
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
 
-td {
-  padding: 14px;
-  border-bottom: 1px solid #293548;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
 
-tr:hover td {
-  background: rgba(255,255,255,.025);
-}
+    th {
+      background: #242424;
+      color: #f5b942;
+      padding: 13px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
 
-.price {
-  color: #63e6be;
-  font-weight: bold;
-}
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #292929;
+    }
 
-.loading,
-.empty {
-  padding: 30px;
-  text-align: center;
-  color: #8995a8;
-}
+    tr:hover td {
+      background: #1f1f1f;
+    }
 
-.loading {
-  color: #f0b90b;
-}
+    .silver {
+      color: #f5b942;
+      font-weight: bold;
+    }
 
-/* ============================================================
-   DOWNLOADS
-============================================================ */
+    .quality {
+      color: #ddd;
+    }
 
-.data-client {
-  margin-top: 25px;
-  padding: 25px;
-  border-radius: 15px;
-  background: #101722;
-  border: 1px solid #283447;
-}
+    .date {
+      color: #777;
+      font-size: 11px;
+    }
 
-.data-client h3 {
-  color: #f0b90b;
-  margin-top: 0;
-  font-size: 20px;
-}
+    .profit-section {
+      margin-top: 30px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+    }
 
-.data-client p {
-  color: #9aa6b8;
-  line-height: 1.6;
-}
+    .profit-section h3 {
+      color: #f5b942;
+      margin-bottom: 15px;
+    }
 
-.install-step {
-  margin-top: 18px;
-  padding: 18px;
-  background: #151d2b;
-  border: 1px solid #293548;
-  border-radius: 12px;
-}
+    .profit-info {
+      color: #aaa;
+      line-height: 1.6;
+    }
 
-.install-step h4 {
-  margin: 0 0 8px;
-  color: #fff;
-  font-size: 16px;
-}
+    .downloads {
+      margin-top: 35px;
+      padding: 25px;
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 15px;
+      text-align: center;
+    }
 
-.install-step p {
-  margin: 5px 0 14px;
-  font-size: 14px;
-  color: #9aa6b8;
-}
+    .downloads h2 {
+      color: #f5b942;
+      margin-bottom: 10px;
+    }
 
-.download-button {
-  display: inline-block;
-  padding: 13px 20px;
-  border-radius: 9px;
-  background: #f0b90b;
-  color: #111;
-  text-decoration: none;
-  font-weight: bold;
-  transition: .2s;
-  cursor: pointer;
-}
+    .downloads p {
+      color: #aaa;
+      margin-bottom: 20px;
+    }
 
-.download-button:hover {
-  background: #ffca28;
-  transform: translateY(-1px);
-}
+    .download-button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 13px 20px;
+      border-radius: 9px;
+      background: #f5b942;
+      color: #111;
+      font-weight: bold;
+      margin: 5px;
+    }
 
-.download-button.secondary {
-  background: #303c50;
-  color: #fff;
-}
+    .download-button:hover {
+      background: #ffd16b;
+    }
 
-.download-button.secondary:hover {
-  background: #40506a;
-}
+    .download-button.secondary {
+      background: #333;
+      color: #fff;
+    }
 
-.warning {
-  margin-top: 18px;
-  padding: 14px;
-  border-radius: 9px;
-  background: rgba(240,185,11,.08);
-  border: 1px solid rgba(240,185,11,.25);
-  color: #c8ced8;
-  font-size: 13px;
-  line-height: 1.5;
-}
+    .download-button.secondary:hover {
+      background: #444;
+    }
 
-@media(max-width:700px) {
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-size: 12px;
+    }
 
-  .search-row {
-    flex-direction: column;
-  }
+    @media(max-width: 700px) {
+      header h1 {
+        font-size: 30px;
+      }
 
-  #searchButton {
-    padding: 14px;
-  }
+      .search-line {
+        flex-direction: column;
+      }
 
-  .filters {
-    grid-template-columns: 1fr;
-  }
+      .search-button {
+        padding: 13px;
+      }
 
-  .selected-header {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-</style>
+      .item-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
   <h1>⚔️ ALBION CRAFT PRO</h1>
-  <p>Pesquisa de itens e preços do mercado de Albion Online</p>
+  <p>Calculadora de mercado, craft e lucro para Albion Online</p>
 </header>
 
 <div class="container">
 
-  <!-- PESQUISA -->
-
   <div class="search-box">
 
-    <div class="search-title">
-      🔎 Pesquisar item
-    </div>
+    <h2>🔎 Procurar item</h2>
 
-    <div class="search-row">
-
+    <div class="search-line">
       <input
-        id="searchInput"
         type="text"
-        placeholder="Digite o nome do item em português..."
+        id="searchInput"
+        placeholder="Digite o nome do item..."
         autocomplete="off"
       >
 
-      <button id="searchButton">
+      <button
+        class="search-button"
+        id="searchButton"
+      >
         PESQUISAR
       </button>
-
     </div>
 
-    <div id="status" class="status">
+    <div id="status">
       Carregando banco de itens...
     </div>
 
-    <!-- FILTROS -->
-
-    <div class="filters">
-
-      <div class="filter-box">
-
-        <label>⚔️ TIER</label>
-
-        <select id="tierSelect">
-
-          <option value="T1">T1</option>
-          <option value="T2">T2</option>
-          <option value="T3">T3</option>
-          <option value="T4" selected>T4</option>
-          <option value="T5">T5</option>
-          <option value="T6">T6</option>
-          <option value="T7">T7</option>
-          <option value="T8">T8</option>
-
-        </select>
-
-      </div>
-
-
-      <div class="filter-box">
-
-        <label>✨ ENCANTAMENTO</label>
-
-        <select id="enchantSelect">
-
-          <option value="0">Normal</option>
-          <option value="1">.1</option>
-          <option value="2">.2</option>
-          <option value="3">.3</option>
-          <option value="4">.4</option>
-
-        </select>
-
-      </div>
-
-
-      <div class="filter-box">
-
-        <label>⭐ QUALIDADE</label>
-
-        <select id="qualitySelect">
-
-          <option value="1">Normal</option>
-          <option value="2">Boa</option>
-          <option value="3">Excepcional</option>
-          <option value="4">Excelente</option>
-          <option value="5">Obra-prima</option>
-
-        </select>
-
-      </div>
-
-    </div>
-
-    <div id="results" class="results"></div>
+    <div id="results"></div>
 
   </div>
 
 
-  <div id="selectedArea"></div>
+  <div id="selectedContainer"></div>
 
 
-  <!-- DOWNLOADS -->
+  <div class="downloads">
 
-  <div class="data-client">
-
-    <h3>📡 AJUDE A MANTER OS PREÇOS ATUALIZADOS</h3>
+    <h2>📥 AJUDE A ATUALIZAR OS PREÇOS</h2>
 
     <p>
-      O <strong>ALBION CRAFT PRO</strong> utiliza dados públicos
-      do mercado de Albion Online.
-      Para ajudar a manter os preços atualizados,
-      instale os dois programas abaixo.
+      O Albion Data Client envia dados públicos de mercado para o
+      Albion Online Data Project.
     </p>
 
+    <a
+      class="download-button secondary"
+      href="https://npcap.com/dist/npcap-1.89.exe"
+    >
+      ⬇️ BAIXAR NPCAP (.EXE)
+    </a>
 
-    <!-- NPCAP -->
+    <a
+      class="download-button"
+      href="https://github.com/ao-data/albiondata-client/releases/download/0.1.59/albiondata-client-amd64-installer.exe"
+    >
+      ⬇️ BAIXAR ALBION DATA CLIENT (.EXE)
+    </a>
 
-    <div class="install-step">
-
-      <h4>1️⃣ Npcap</h4>
-
-      <p>
-        Instale primeiro o Npcap.
-        Ele é necessário para o Albion Data Client.
-      </p>
-
-      <a
-        class="download-button secondary"
-        href="https://npcap.com/dist/npcap-1.89.exe"
-        download="npcap-1.89.exe"
-      >
-        ⬇️ BAIXAR NPCAP
-      </a>
-
-    </div>
-
-
-    <!-- ALBION DATA CLIENT -->
-
-    <div class="install-step">
-
-      <h4>2️⃣ Albion Data Client</h4>
-
-      <p>
-        Depois de instalar o Npcap,
-        instale o Albion Data Client.
-      </p>
-
-      <a
-        class="download-button"
-        href="https://github.com/ao-data/albiondata-client/releases/download/0.1.59/albiondata-client-amd64-installer.exe"
-        download="albiondata-client-amd64-installer.exe"
-      >
-        ⬇️ BAIXAR ALBION DATA CLIENT
-      </a>
-
-    </div>
-
-
-    <div class="warning">
-
-      💡 <strong>Como usar:</strong><br><br>
-
-      1. Baixe e instale o Npcap.<br>
-      2. Baixe e instale o Albion Data Client.<br>
-      3. Abra o Albion Online.<br>
-      4. Abra o Albion Data Client.<br>
-      5. Jogue normalmente e visite os mercados do jogo.
-
-    </div>
+    <p style="margin-top:15px;font-size:12px;">
+      Depois de instalar, abra o Albion Online Data Client e jogue normalmente.
+      Ao visitar mercados, os dados podem ser enviados ao projeto.
+    </p>
 
   </div>
 
 </div>
 
+<footer>
+  ALBION CRAFT PRO © 2026
+</footer>
+
 
 <script>
 
-/* ============================================================
-   CONFIGURAÇÃO
-============================================================ */
-
 const ITEM_DATABASE_URL =
-"https://raw.githubusercontent.com/ao-data/ao-bin-dumps/master/formatted/items.json";
+  "https://raw.githubusercontent.com/ao-data/ao-bin-dumps/master/formatted/items.json";
 
 const PRICE_API =
-"https://west.albion-online-data.com/api/v2/stats/prices/";
+  "https://west.albion-online-data.com/api/v2/stats/prices/";
 
 const ITEM_IMAGE =
-"https://render.albiononline.com/v1/item/";
+  "https://render.albiononline.com/v1/item/";
 
 const CITIES = [
   "Bridgewatch",
@@ -568,144 +448,190 @@ const CITIES = [
   "Brecilien"
 ];
 
+const TIERS = [
+  "T1",
+  "T2",
+  "T3",
+  "T4",
+  "T5",
+  "T6",
+  "T7",
+  "T8"
+];
+
+const ENCHANTMENTS = [
+  {
+    value: "0",
+    label: "Normal"
+  },
+  {
+    value: "1",
+    label: ".1"
+  },
+  {
+    value: "2",
+    label: ".2"
+  },
+  {
+    value: "3",
+    label: ".3"
+  },
+  {
+    value: "4",
+    label: ".4"
+  }
+];
+
 let items = [];
+
 let selectedItem = null;
 
+let selectedTier = "T4";
 
-/* ============================================================
+let selectedEnchant = "0";
+
+
+/* =========================
    NOMES EM PORTUGUÊS
-============================================================ */
+========================= */
 
 const PT_NAMES = {
 
   "T4_BAG": "Bolsa do Adepto",
+  "T5_BAG": "Bolsa do Especialista",
+  "T6_BAG": "Bolsa do Mestre",
+  "T7_BAG": "Bolsa do Grão-Mestre",
+  "T8_BAG": "Bolsa do Ancião",
+
   "T4_CAPE": "Capa do Adepto",
+  "T5_CAPE": "Capa do Especialista",
+  "T6_CAPE": "Capa do Mestre",
+  "T7_CAPE": "Capa do Grão-Mestre",
+  "T8_CAPE": "Capa do Ancião"
 
-  "T4_SWORD": "Espada do Adepto",
-  "T4_AXE": "Machado do Adepto",
-  "T4_BOW": "Arco do Adepto",
-  "T4_CROSSBOW": "Besta do Adepto",
-  "T4_HAMMER": "Martelo do Adepto",
-  "T4_MACE": "Maça do Adepto",
-  "T4_SPEAR": "Lança do Adepto",
-  "T4_DAGGER": "Adaga do Adepto",
-
-  "T4_CLOTH": "Tecido do Adepto",
-  "T4_LEATHER": "Couro do Adepto",
-  "T4_PLANKS": "Tábuas do Adepto",
-  "T4_METALBAR": "Barra de Metal do Adepto",
-  "T4_STONEBLOCK": "Bloco de Pedra do Adepto",
-
-  "T4_WOOD": "Madeira do Adepto",
-  "T4_HIDE": "Pele do Adepto",
-  "T4_ORE": "Minério do Adepto",
-  "T4_ROCK": "Pedra do Adepto",
-  "T4_FIBER": "Fibra do Adepto"
 };
 
 
-/* ============================================================
-   NOME PORTUGUÊS
-============================================================ */
+/* =========================
+   PEGAR ID
+========================= */
 
-function getPortugueseName(item) {
+function getItemId(item) {
 
-  const id =
+  return (
     item.UniqueName ||
     item.unique_name ||
     item.uniqueName ||
     item.Index ||
     item.index ||
-    "";
+    ""
+  );
+
+}
+
+
+/* =========================
+   NOME PORTUGUÊS
+========================= */
+
+function getPortugueseName(item) {
+
+  const id = getItemId(item);
 
   if (PT_NAMES[id]) {
     return PT_NAMES[id];
   }
 
-  const localized =
+  const names =
     item.LocalizedNames ||
     item.localizedNames ||
-    item.localized_names ||
-    null;
-
-  if (localized && typeof localized === "object") {
-
-    const keys = [
-      "PT-BR",
-      "pt-BR",
-      "pt-br",
-      "PT",
-      "pt",
-      "Portuguese",
-      "Português",
-      "portuguese",
-      "português"
-    ];
-
-    for (const key of keys) {
-
-      if (
-        localized[key] &&
-        typeof localized[key] === "string"
-      ) {
-
-        return localized[key];
-
-      }
-
-    }
-
-    for (const key of Object.keys(localized)) {
-
-      const k = key.toLowerCase();
-
-      if (
-        k.includes("pt") ||
-        k.includes("portugu")
-      ) {
-
-        if (
-          typeof localized[key] === "string" &&
-          localized[key].trim()
-        ) {
-
-          return localized[key];
-
-        }
-
-      }
-
-    }
-  }
+    {};
 
   return (
+    names["PT-BR"] ||
+    names["pt-BR"] ||
+    names["PT"] ||
+    names["pt"] ||
+    names["Portuguese"] ||
+    names["portuguese"] ||
     item.Name ||
     item.name ||
-    item.DisplayName ||
-    item.displayName ||
     id
   );
+
 }
 
 
-/* ============================================================
-   NORMALIZAR
-============================================================ */
+/* =========================
+   TIRAR TIER DO ID
+========================= */
 
-function normalize(text) {
+function getBaseId(id) {
 
-  return String(text || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
+  return String(id)
+    .replace(/^T[1-8]_/, "")
+    .replace(/@\d+$/, "");
+
+}
+
+
+/* =========================
+   MONTAR ID
+========================= */
+
+function buildItemId(baseId, tier, enchant) {
+
+  let id = `${tier}_${baseId}`;
+
+  if (enchant !== "0") {
+    id += `@${enchant}`;
+  }
+
+  return id;
+
+}
+
+
+/* =========================
+   NOME BONITO
+========================= */
+
+function removeTierFromName(name) {
+
+  return String(name)
+    .replace(/\s+T[1-8]\s*$/i, "")
+    .replace(/\s+\.?[1-4]\s*$/i, "")
     .trim();
 
 }
 
 
-/* ============================================================
-   CARREGAR ITENS
-============================================================ */
+function getDisplayName() {
+
+  if (!selectedItem) {
+    return "";
+  }
+
+  const baseName =
+    removeTierFromName(
+      getPortugueseName(selectedItem)
+    );
+
+  let name =
+    `${selectedTier} ${baseName}`;
+
+  if (selectedEnchant !== "0") {
+    name += ` .${selectedEnchant}`;
+  }
+
+  return name;
+
+}
+
+
+/* =========================
+   CARREGAR BANCO
+========================= */
 
 async function loadItems() {
 
@@ -714,18 +640,13 @@ async function loadItems() {
 
   try {
 
-    status.textContent =
-      "Carregando banco de itens do Albion...";
-
     const response =
       await fetch(ITEM_DATABASE_URL);
 
     if (!response.ok) {
-
       throw new Error(
-        "Erro ao carregar itens"
+        "Não foi possível carregar o banco."
       );
-
     }
 
     const data =
@@ -739,52 +660,11 @@ async function loadItems() {
 
       items = data.items;
 
-    } else if (Array.isArray(data.data)) {
-
-      items = data.data;
-
-    } else {
+    } else if (typeof data === "object") {
 
       items = Object.values(data);
 
     }
-
-    items = items
-      .map(item => {
-
-        const id =
-          item.UniqueName ||
-          item.unique_name ||
-          item.uniqueName ||
-          item.Index ||
-          item.index;
-
-        if (!id) {
-          return null;
-        }
-
-        return {
-          raw: item,
-          id: id,
-          name: getPortugueseName(item)
-        };
-
-      })
-      .filter(Boolean);
-
-
-    const bag =
-      items.find(
-        item => item.id === "T4_BAG"
-      );
-
-    if (bag) {
-
-      bag.name =
-        "Bolsa do Adepto";
-
-    }
-
 
     status.textContent =
       `${items.length.toLocaleString("pt-BR")} itens carregados.`;
@@ -794,63 +674,94 @@ async function loadItems() {
     console.error(error);
 
     status.textContent =
-      "❌ Erro ao carregar banco de itens.";
+      "Erro ao carregar banco de itens.";
 
   }
 
 }
 
 
-/* ============================================================
-   PESQUISA
-============================================================ */
+/* =========================
+   PESQUISAR
+========================= */
 
 function searchItems() {
 
   const input =
     document.getElementById("searchInput");
 
+  const term =
+    input.value.trim().toLowerCase();
+
   const results =
     document.getElementById("results");
 
-  const query =
-    normalize(input.value);
-
   results.innerHTML = "";
 
-  if (!query) {
-    return;
-  }
-
-  if (!items.length) {
+  if (!term) {
 
     results.innerHTML =
-      `<div class="empty">
-        Aguarde o banco de itens carregar.
+      `<div class="loading">
+        Digite o nome de um item.
       </div>`;
 
     return;
 
   }
 
+  const found = [];
 
-  const found =
-    items
-      .filter(item => {
+  const usedBaseIds =
+    new Set();
 
-        const name =
-          normalize(item.name);
+  for (const item of items) {
 
-        return name.includes(query);
+    const id =
+      getItemId(item);
 
-      })
-      .slice(0, 30);
+    if (!id) continue;
+
+    if (!/^T[1-8]_/.test(id)) {
+      continue;
+    }
+
+    const name =
+      getPortugueseName(item);
+
+    const searchable =
+      `${name} ${id}`
+        .toLowerCase();
+
+    if (!searchable.includes(term)) {
+      continue;
+    }
+
+    const baseId =
+      getBaseId(id);
+
+    if (usedBaseIds.has(baseId)) {
+      continue;
+    }
+
+    usedBaseIds.add(baseId);
+
+    found.push({
+      item,
+      id,
+      name
+    });
+
+    if (found.length >= 30) {
+      break;
+    }
+
+  }
 
 
   if (!found.length) {
 
     results.innerHTML =
-      `<div class="empty">
+      `<div class="loading">
         Nenhum item encontrado.
       </div>`;
 
@@ -859,159 +770,79 @@ function searchItems() {
   }
 
 
-  const used =
-    new Set();
-
-
-  found.forEach(item => {
-
-    if (used.has(item.id)) {
-      return;
-    }
-
-    used.add(item.id);
-
+  for (const result of found) {
 
     const div =
       document.createElement("div");
 
     div.className =
-      "item-option";
+      "result-item";
 
-
-    const image =
-      `${ITEM_IMAGE}${encodeURIComponent(item.id)}.png`;
-
+    const imageId =
+      result.id;
 
     div.innerHTML = `
 
       <img
-        src="${image}"
-        alt="${escapeHtml(item.name)}"
-        onerror="this.style.visibility='hidden'"
+        src="${ITEM_IMAGE}${encodeURIComponent(imageId)}.png"
+        onerror="this.style.display='none'"
       >
 
       <div>
 
-        <div class="item-name">
-          ${escapeHtml(item.name)}
+        <div class="result-name">
+          ${escapeHtml(
+            removeTierFromName(result.name)
+          )}
         </div>
 
-        <div class="item-details">
-          Clique para selecionar este item
+        <div class="result-id">
+          ${escapeHtml(result.id)}
         </div>
 
       </div>
 
     `;
 
-
     div.addEventListener(
       "click",
-      () => selectItem(item)
+      () => selectItem(result.item)
     );
-
 
     results.appendChild(div);
 
-  });
-
-}
-
-
-/* ============================================================
-   MONTAR ID
-============================================================ */
-
-function buildItemId(baseId) {
-
-  const tier =
-    document.getElementById("tierSelect").value;
-
-  const enchant =
-    document.getElementById("enchantSelect").value;
-
-
-  let id =
-    baseId.replace(/^T[1-8]_/, "");
-
-
-  id =
-    id.replace(/@\d+$/, "");
-
-
-  id =
-    `${tier}_${id}`;
-
-
-  if (enchant !== "0") {
-
-    id += `@${enchant}`;
-
   }
 
-
-  return id;
-
 }
 
 
-/* ============================================================
-   NOME EXIBIDO
-============================================================ */
-
-function getDisplayName(item) {
-
-  const tier =
-    document.getElementById("tierSelect").value;
-
-  const enchant =
-    document.getElementById("enchantSelect").value;
-
-
-  let name =
-    item.name
-      .replace(/^T[1-8]\s+/i, "")
-      .trim();
-
-
-  let result =
-    `${name} ${tier}`;
-
-
-  if (enchant !== "0") {
-
-    result += `.${enchant}`;
-
-  }
-
-
-  return result;
-
-}
-
-
-/* ============================================================
+/* =========================
    SELECIONAR ITEM
-============================================================ */
+========================= */
 
 function selectItem(item) {
 
   selectedItem =
     item;
 
-  document
-    .getElementById("results")
-    .innerHTML = "";
+  selectedTier =
+    "T4";
+
+  selectedEnchant =
+    "0";
+
+  document.getElementById(
+    "results"
+  ).innerHTML = "";
 
   showSelectedItem();
 
 }
 
 
-/* ============================================================
+/* =========================
    MOSTRAR ITEM
-============================================================ */
+========================= */
 
 function showSelectedItem() {
 
@@ -1019,73 +850,126 @@ function showSelectedItem() {
     return;
   }
 
+  const id =
+    getItemId(selectedItem);
 
-  const area =
-    document.getElementById("selectedArea");
+  const baseId =
+    getBaseId(id);
 
-
-  const itemId =
+  const selectedId =
     buildItemId(
-      selectedItem.id
+      baseId,
+      selectedTier,
+      selectedEnchant
     );
 
-
-  const displayName =
-    getDisplayName(
-      selectedItem
+  const container =
+    document.getElementById(
+      "selectedContainer"
     );
 
+  container.innerHTML = `
 
-  const image =
-    `${ITEM_IMAGE}${encodeURIComponent(itemId)}.png`;
+    <div class="selected-item">
 
-
-  area.innerHTML = `
-
-    <div class="selected">
-
-      <div class="selected-header">
+      <div class="item-header">
 
         <img
-          src="${image}"
-          alt="${escapeHtml(displayName)}"
-          onerror="this.style.visibility='hidden'"
+          src="${ITEM_IMAGE}${encodeURIComponent(selectedId)}.png"
+          onerror="this.style.display='none'"
         >
 
         <div>
 
           <h2>
-            ${escapeHtml(displayName)}
+            ${escapeHtml(getDisplayName())}
           </h2>
 
-          <p>
-            Item selecionado
-          </p>
+          <div class="item-id">
+            ID: ${escapeHtml(selectedId)}
+          </div>
 
         </div>
 
       </div>
 
 
-      <div class="market-controls">
+      <div class="section-title">
+        TIER
+      </div>
 
-        <select id="citySelect">
+      <div class="buttons">
 
-          ${CITIES.map(city => `
-            <option value="${city}">
-              ${city}
-            </option>
-          `).join("")}
+        ${TIERS.map(tier => `
 
-        </select>
+          <button
+            class="tier-button ${tier === selectedTier ? "active" : ""}"
+            data-tier="${tier}"
+          >
+            ${tier}
+          </button>
+
+        `).join("")}
 
       </div>
 
 
+      <div class="section-title">
+        ENCANTAMENTO
+      </div>
+
+      <div class="buttons">
+
+        ${ENCHANTMENTS.map(enc => `
+
+          <button
+            class="enchant-button ${enc.value === selectedEnchant ? "active" : ""}"
+            data-enchant="${enc.value}"
+          >
+            ${enc.label}
+          </button>
+
+        `).join("")}
+
+      </div>
+
+
+      <div class="city-title">
+        💰 PREÇOS EM TODAS AS CIDADES
+      </div>
+
       <div id="priceArea">
 
         <div class="loading">
-          🔄 Consultando mercado...
+          Carregando preços...
+        </div>
+
+      </div>
+
+
+      <div class="profit-section">
+
+        <h3>
+          🛠️ CALCULADORA DE CRAFT
+        </h3>
+
+        <div class="profit-info">
+
+          <p>
+            <strong>Próximo passo:</strong>
+            esta área será usada para mostrar automaticamente
+            os materiais necessários, custo dos materiais,
+            taxa de fabricação, custo total, preço de venda,
+            impostos e lucro.
+          </p>
+
+          <br>
+
+          <p>
+            O banco de receitas será integrado aos dados
+            de fabricação do Albion Online.
+          </p>
+
         </div>
 
       </div>
@@ -1096,276 +980,260 @@ function showSelectedItem() {
 
 
   document
-    .getElementById("citySelect")
-    .addEventListener(
-      "change",
-      loadPrices
-    );
+    .querySelectorAll(".tier-button")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectedTier =
+            button.dataset.tier;
+
+          showSelectedItem();
+
+        }
+      );
+
+    });
 
 
-  loadPrices();
+  document
+    .querySelectorAll(".enchant-button")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectedEnchant =
+            button.dataset.enchant;
+
+          showSelectedItem();
+
+        }
+      );
+
+    });
+
+
+  loadAllCitiesPrices();
 
 }
 
 
-/* ============================================================
-   CARREGAR PREÇOS
-============================================================ */
+/* =========================
+   PREÇOS
+========================= */
 
-async function loadPrices() {
+async function loadAllCitiesPrices() {
 
-  if (!selectedItem) {
-    return;
-  }
+  const id =
+    getItemId(selectedItem);
 
-
-  const city =
-    document
-      .getElementById("citySelect")
-      .value;
-
-
-  const quality =
-    document
-      .getElementById("qualitySelect")
-      .value;
-
+  const baseId =
+    getBaseId(id);
 
   const itemId =
     buildItemId(
-      selectedItem.id
+      baseId,
+      selectedTier,
+      selectedEnchant
     );
-
-
-  const displayName =
-    getDisplayName(
-      selectedItem
-    );
-
-
-  const image =
-    `${ITEM_IMAGE}${encodeURIComponent(itemId)}.png`;
-
-
-  const selectedImage =
-    document.querySelector(
-      ".selected-header img"
-    );
-
-
-  if (selectedImage) {
-
-    selectedImage.src =
-      image;
-
-  }
-
-
-  const title =
-    document.querySelector(
-      ".selected-header h2"
-    );
-
-
-  if (title) {
-
-    title.textContent =
-      displayName;
-
-  }
-
 
   const priceArea =
     document.getElementById(
       "priceArea"
     );
 
+  priceArea.innerHTML =
+    `<div class="loading">
+      Buscando preços...
+    </div>`;
+
+
+  const allResults = [];
+
+
+  for (const city of CITIES) {
+
+    try {
+
+      const url =
+        `${PRICE_API}${encodeURIComponent(itemId)}.json` +
+        `?locations=${encodeURIComponent(city)}` +
+        `&qualities=1,2,3,4,5`;
+
+      const response =
+        await fetch(url);
+
+      if (!response.ok) {
+        continue;
+      }
+
+      const data =
+        await response.json();
+
+      if (Array.isArray(data)) {
+
+        allResults.push(
+          ...data
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Erro cidade:",
+        city,
+        error
+      );
+
+    }
+
+  }
+
+
+  renderPrices(
+    allResults
+  );
+
+}
+
+
+/* =========================
+   RENDER PREÇOS
+========================= */
+
+function renderPrices(data) {
+
+  const priceArea =
+    document.getElementById(
+      "priceArea"
+    );
+
+  if (!data.length) {
+
+    priceArea.innerHTML =
+      `<div class="loading">
+        Nenhum preço encontrado para este item.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const rows =
+    data.map(item => {
+
+      return `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(item.item_id || "-")}
+          </td>
+
+          <td>
+            ${escapeHtml(item.city || "-")}
+          </td>
+
+          <td class="quality">
+            ${qualityName(item.quality)}
+          </td>
+
+          <td class="silver">
+            ${formatSilver(item.sell_price_min)}
+          </td>
+
+          <td class="silver">
+            ${formatSilver(item.sell_price_max)}
+          </td>
+
+          <td class="silver">
+            ${formatSilver(item.buy_price_max)}
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
+
 
   priceArea.innerHTML = `
 
-    <div class="loading">
+    <div class="table-wrapper">
 
-      🔄 Buscando
-      <strong>
-        ${escapeHtml(displayName)}
-      </strong>
-      em
-      ${escapeHtml(city)}...
+      <table>
 
+        <thead>
+
+          <tr>
+
+            <th>Item</th>
+            <th>Cidade</th>
+            <th>Qualidade</th>
+            <th>Venda mínima</th>
+            <th>Venda máxima</th>
+            <th>Compra máxima</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${rows}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div style="
+      margin-top:10px;
+      color:#777;
+      font-size:12px;
+    ">
+      Os preços são fornecidos pelo Albion Online Data Project.
     </div>
 
   `;
 
-
-  try {
-
-    const url =
-      `${PRICE_API}${encodeURIComponent(itemId)}.json` +
-      `?locations=${encodeURIComponent(city)}` +
-      `&qualities=${quality}`;
-
-
-    const response =
-      await fetch(url);
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const rows =
-      data.filter(
-        row => row.item_id === itemId
-      );
-
-
-    if (!rows.length) {
-
-      priceArea.innerHTML = `
-
-        <div class="empty">
-
-          Nenhum preço encontrado para:
-
-          <br><br>
-
-          <strong>
-            ${escapeHtml(displayName)}
-          </strong>
-
-          <br>
-
-          ${escapeHtml(city)}
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    priceArea.innerHTML = `
-
-      <div class="table-wrapper">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>Item</th>
-              <th>Cidade</th>
-              <th>Qualidade</th>
-              <th>Venda mínima</th>
-              <th>Venda máxima</th>
-              <th>Compra máxima</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${rows.map(row => `
-
-              <tr>
-
-                <td>
-                  ${escapeHtml(displayName)}
-                </td>
-
-                <td>
-                  ${escapeHtml(row.city || city)}
-                </td>
-
-                <td>
-                  ${qualityName(row.quality)}
-                </td>
-
-                <td class="price">
-                  ${formatSilver(row.sell_price_min)}
-                </td>
-
-                <td class="price">
-                  ${formatSilver(row.sell_price_max)}
-                </td>
-
-                <td class="price">
-                  ${formatSilver(row.buy_price_max)}
-                </td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    `;
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    priceArea.innerHTML = `
-
-      <div class="empty">
-
-        ❌ Não foi possível consultar o mercado.
-
-        <br><br>
-
-        Tente novamente.
-
-      </div>
-
-    `;
-
-  }
-
 }
 
 
-/* ============================================================
+/* =========================
    QUALIDADE
-============================================================ */
+========================= */
 
-function qualityName(value) {
+function qualityName(quality) {
 
   const names = {
 
     1: "Normal",
-    2: "Boa",
-    3: "Excepcional",
-    4: "Excelente",
+    2: "Bom",
+    3: "Excelente",
+    4: "Excepcional",
     5: "Obra-prima"
 
   };
 
-  return names[value] || value;
+  return (
+    names[quality] ||
+    `Qualidade ${quality || "-"}`
+  );
 
 }
 
 
-/* ============================================================
-   FORMATAR PRATA
-============================================================ */
+/* =========================
+   PRATA
+========================= */
 
 function formatSilver(value) {
 
@@ -1375,7 +1243,7 @@ function formatSilver(value) {
     Number(value) <= 0
   ) {
 
-    return "Sem preço";
+    return "-";
 
   }
 
@@ -1388,13 +1256,13 @@ function formatSilver(value) {
 }
 
 
-/* ============================================================
+/* =========================
    ESCAPAR HTML
-============================================================ */
+========================= */
 
 function escapeHtml(value) {
 
-  return String(value || "")
+  return String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -1404,9 +1272,9 @@ function escapeHtml(value) {
 }
 
 
-/* ============================================================
+/* =========================
    EVENTOS
-============================================================ */
+========================= */
 
 document
   .getElementById("searchButton")
@@ -1419,56 +1287,24 @@ document
 document
   .getElementById("searchInput")
   .addEventListener(
-    "input",
-    searchItems
-  );
+    "keydown",
+    event => {
 
+      if (
+        event.key === "Enter"
+      ) {
 
-document
-  .getElementById("tierSelect")
-  .addEventListener(
-    "change",
-    () => {
+        searchItems();
 
-      if (selectedItem) {
-        showSelectedItem();
       }
 
     }
   );
 
 
-document
-  .getElementById("enchantSelect")
-  .addEventListener(
-    "change",
-    () => {
-
-      if (selectedItem) {
-        showSelectedItem();
-      }
-
-    }
-  );
-
-
-document
-  .getElementById("qualitySelect")
-  .addEventListener(
-    "change",
-    () => {
-
-      if (selectedItem) {
-        loadPrices();
-      }
-
-    }
-  );
-
-
-/* ============================================================
+/* =========================
    INICIAR
-============================================================ */
+========================= */
 
 loadItems();
 
