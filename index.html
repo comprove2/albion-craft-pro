@@ -264,7 +264,7 @@ tr:hover td {
 }
 
 /* ============================================================
-   ÁREA DOS PROGRAMAS
+   DOWNLOADS
 ============================================================ */
 
 .data-client {
@@ -303,6 +303,7 @@ tr:hover td {
 .install-step p {
   margin: 5px 0 14px;
   font-size: 14px;
+  color: #9aa6b8;
 }
 
 .download-button {
@@ -314,6 +315,7 @@ tr:hover td {
   text-decoration: none;
   font-weight: bold;
   transition: .2s;
+  cursor: pointer;
 }
 
 .download-button:hover {
@@ -372,6 +374,8 @@ tr:hover td {
 
 <div class="container">
 
+  <!-- PESQUISA -->
+
   <div class="search-box">
 
     <div class="search-title">
@@ -397,12 +401,16 @@ tr:hover td {
       Carregando banco de itens...
     </div>
 
+    <!-- FILTROS -->
+
     <div class="filters">
 
       <div class="filter-box">
+
         <label>⚔️ TIER</label>
 
         <select id="tierSelect">
+
           <option value="T1">T1</option>
           <option value="T2">T2</option>
           <option value="T3">T3</option>
@@ -411,33 +419,41 @@ tr:hover td {
           <option value="T6">T6</option>
           <option value="T7">T7</option>
           <option value="T8">T8</option>
+
         </select>
+
       </div>
+
 
       <div class="filter-box">
 
         <label>✨ ENCANTAMENTO</label>
 
         <select id="enchantSelect">
+
           <option value="0">Normal</option>
           <option value="1">.1</option>
           <option value="2">.2</option>
           <option value="3">.3</option>
           <option value="4">.4</option>
+
         </select>
 
       </div>
+
 
       <div class="filter-box">
 
         <label>⭐ QUALIDADE</label>
 
         <select id="qualitySelect">
+
           <option value="1">Normal</option>
           <option value="2">Boa</option>
           <option value="3">Excepcional</option>
           <option value="4">Excelente</option>
           <option value="5">Obra-prima</option>
+
         </select>
 
       </div>
@@ -448,12 +464,11 @@ tr:hover td {
 
   </div>
 
+
   <div id="selectedArea"></div>
 
 
-  <!-- ========================================================
-       DOWNLOADS
-  ========================================================= -->
+  <!-- DOWNLOADS -->
 
   <div class="data-client">
 
@@ -461,49 +476,49 @@ tr:hover td {
 
     <p>
       O <strong>ALBION CRAFT PRO</strong> utiliza dados públicos
-      do mercado de Albion Online. Para ajudar a manter os preços
-      atualizados, você pode instalar os programas abaixo.
+      do mercado de Albion Online.
+      Para ajudar a manter os preços atualizados,
+      instale os dois programas abaixo.
     </p>
 
 
-    <!-- PASSO 1 -->
+    <!-- NPCAP -->
 
     <div class="install-step">
 
-      <h4>1️⃣ Instale o Npcap</h4>
+      <h4>1️⃣ Npcap</h4>
 
       <p>
-        O Npcap é necessário para que o Albion Data Client
-        consiga capturar os dados do jogo.
+        Instale primeiro o Npcap.
+        Ele é necessário para o Albion Data Client.
       </p>
 
       <a
         class="download-button secondary"
         href="https://npcap.com/dist/npcap-1.89.exe"
-        target="_blank"
-        rel="noopener noreferrer"
+        download="npcap-1.89.exe"
       >
-        ⬇️ BAIXAR NPCAP 1.89
+        ⬇️ BAIXAR NPCAP
       </a>
 
     </div>
 
 
-    <!-- PASSO 2 -->
+    <!-- ALBION DATA CLIENT -->
 
     <div class="install-step">
 
-      <h4>2️⃣ Instale o Albion Data Client</h4>
+      <h4>2️⃣ Albion Data Client</h4>
 
       <p>
-        Depois de instalar o Npcap, instale o Albion Data Client.
+        Depois de instalar o Npcap,
+        instale o Albion Data Client.
       </p>
 
       <a
         class="download-button"
         href="https://github.com/ao-data/albiondata-client/releases/download/0.1.59/albiondata-client-amd64-installer.exe"
-        target="_blank"
-        rel="noopener noreferrer"
+        download="albiondata-client-amd64-installer.exe"
       >
         ⬇️ BAIXAR ALBION DATA CLIENT
       </a>
@@ -515,14 +530,11 @@ tr:hover td {
 
       💡 <strong>Como usar:</strong><br><br>
 
-      1. Instale o Npcap.<br>
-      2. Instale o Albion Data Client.<br>
+      1. Baixe e instale o Npcap.<br>
+      2. Baixe e instale o Albion Data Client.<br>
       3. Abra o Albion Online.<br>
       4. Abra o Albion Data Client.<br>
-      5. Jogue normalmente e visite os mercados do jogo.<br><br>
-
-      Os dados coletados ajudam o Albion Data Project a manter
-      os preços do mercado atualizados.
+      5. Jogue normalmente e visite os mercados do jogo.
 
     </div>
 
@@ -561,7 +573,7 @@ let selectedItem = null;
 
 
 /* ============================================================
-   NOMES FIXOS
+   NOMES EM PORTUGUÊS
 ============================================================ */
 
 const PT_NAMES = {
@@ -636,7 +648,9 @@ function getPortugueseName(item) {
         localized[key] &&
         typeof localized[key] === "string"
       ) {
+
         return localized[key];
+
       }
 
     }
@@ -654,7 +668,9 @@ function getPortugueseName(item) {
           typeof localized[key] === "string" &&
           localized[key].trim()
         ) {
+
           return localized[key];
+
         }
 
       }
@@ -673,7 +689,7 @@ function getPortugueseName(item) {
 
 
 /* ============================================================
-   NORMALIZAR TEXTO
+   NORMALIZAR
 ============================================================ */
 
 function normalize(text) {
@@ -705,7 +721,11 @@ async function loadItems() {
       await fetch(ITEM_DATABASE_URL);
 
     if (!response.ok) {
-      throw new Error("Erro ao carregar itens");
+
+      throw new Error(
+        "Erro ao carregar itens"
+      );
+
     }
 
     const data =
@@ -754,10 +774,15 @@ async function loadItems() {
 
 
     const bag =
-      items.find(i => i.id === "T4_BAG");
+      items.find(
+        item => item.id === "T4_BAG"
+      );
 
     if (bag) {
-      bag.name = "Bolsa do Adepto";
+
+      bag.name =
+        "Bolsa do Adepto";
+
     }
 
 
@@ -805,6 +830,7 @@ function searchItems() {
       </div>`;
 
     return;
+
   }
 
 
@@ -833,7 +859,9 @@ function searchItems() {
   }
 
 
-  const used = new Set();
+  const used =
+    new Set();
+
 
   found.forEach(item => {
 
@@ -907,15 +935,19 @@ function buildItemId(baseId) {
   let id =
     baseId.replace(/^T[1-8]_/, "");
 
+
   id =
     id.replace(/@\d+$/, "");
+
 
   id =
     `${tier}_${id}`;
 
 
   if (enchant !== "0") {
+
     id += `@${enchant}`;
+
   }
 
 
@@ -948,7 +980,9 @@ function getDisplayName(item) {
 
 
   if (enchant !== "0") {
+
     result += `.${enchant}`;
+
   }
 
 
@@ -958,14 +992,16 @@ function getDisplayName(item) {
 
 
 /* ============================================================
-   SELECIONAR
+   SELECIONAR ITEM
 ============================================================ */
 
 function selectItem(item) {
 
-  selectedItem = item;
+  selectedItem =
+    item;
 
-  document.getElementById("results")
+  document
+    .getElementById("results")
     .innerHTML = "";
 
   showSelectedItem();
@@ -989,11 +1025,15 @@ function showSelectedItem() {
 
 
   const itemId =
-    buildItemId(selectedItem.id);
+    buildItemId(
+      selectedItem.id
+    );
 
 
   const displayName =
-    getDisplayName(selectedItem);
+    getDisplayName(
+      selectedItem
+    );
 
 
   const image =
@@ -1069,7 +1109,7 @@ function showSelectedItem() {
 
 
 /* ============================================================
-   PREÇOS
+   CARREGAR PREÇOS
 ============================================================ */
 
 async function loadPrices() {
@@ -1080,19 +1120,27 @@ async function loadPrices() {
 
 
   const city =
-    document.getElementById("citySelect").value;
+    document
+      .getElementById("citySelect")
+      .value;
 
 
   const quality =
-    document.getElementById("qualitySelect").value;
+    document
+      .getElementById("qualitySelect")
+      .value;
 
 
   const itemId =
-    buildItemId(selectedItem.id);
+    buildItemId(
+      selectedItem.id
+    );
 
 
   const displayName =
-    getDisplayName(selectedItem);
+    getDisplayName(
+      selectedItem
+    );
 
 
   const image =
@@ -1100,23 +1148,37 @@ async function loadPrices() {
 
 
   const selectedImage =
-    document.querySelector(".selected-header img");
+    document.querySelector(
+      ".selected-header img"
+    );
+
 
   if (selectedImage) {
-    selectedImage.src = image;
+
+    selectedImage.src =
+      image;
+
   }
 
 
   const title =
-    document.querySelector(".selected-header h2");
+    document.querySelector(
+      ".selected-header h2"
+    );
+
 
   if (title) {
-    title.textContent = displayName;
+
+    title.textContent =
+      displayName;
+
   }
 
 
   const priceArea =
-    document.getElementById("priceArea");
+    document.getElementById(
+      "priceArea"
+    );
 
 
   priceArea.innerHTML = `
@@ -1124,8 +1186,11 @@ async function loadPrices() {
     <div class="loading">
 
       🔄 Buscando
-      <strong>${escapeHtml(displayName)}</strong>
-      em ${escapeHtml(city)}...
+      <strong>
+        ${escapeHtml(displayName)}
+      </strong>
+      em
+      ${escapeHtml(city)}...
 
     </div>
 
@@ -1158,8 +1223,8 @@ async function loadPrices() {
 
 
     const rows =
-      data.filter(row =>
-        row.item_id === itemId
+      data.filter(
+        row => row.item_id === itemId
       );
 
 
@@ -1299,7 +1364,7 @@ function qualityName(value) {
 
 
 /* ============================================================
-   PRATA
+   FORMATAR PRATA
 ============================================================ */
 
 function formatSilver(value) {
@@ -1315,7 +1380,8 @@ function formatSilver(value) {
   }
 
   return (
-    Number(value).toLocaleString("pt-BR")
+    Number(value)
+      .toLocaleString("pt-BR")
     + " 🪙"
   );
 
@@ -1323,7 +1389,7 @@ function formatSilver(value) {
 
 
 /* ============================================================
-   SEGURANÇA
+   ESCAPAR HTML
 ============================================================ */
 
 function escapeHtml(value) {
