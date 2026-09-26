@@ -44,15 +44,17 @@
 
     .container {
       width: 95%;
-      max-width: 1400px;
+      max-width: 1500px;
       margin: 30px auto;
     }
 
-    .search-box {
+    .search-box,
+    .selected-item,
+    .downloads {
       background: #171717;
       border: 1px solid #333;
       border-radius: 15px;
-      padding: 20px;
+      padding: 25px;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
@@ -142,12 +144,8 @@
       margin-top: 3px;
     }
 
-    .selected-item {
+    #selectedContainer {
       margin-top: 25px;
-      background: #171717;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 25px;
     }
 
     .item-header {
@@ -177,6 +175,7 @@
       color: #f5b942;
       margin: 20px 0 10px;
       font-size: 17px;
+      font-weight: bold;
     }
 
     .buttons {
@@ -209,7 +208,8 @@
     .city-title {
       margin-top: 30px;
       color: #f5b942;
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: bold;
     }
 
     .loading {
@@ -226,7 +226,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 900px;
+      min-width: 1000px;
     }
 
     th {
@@ -235,6 +235,7 @@
       padding: 13px;
       text-align: left;
       border-bottom: 1px solid #444;
+      white-space: nowrap;
     }
 
     td {
@@ -251,6 +252,21 @@
       font-weight: bold;
     }
 
+    .green {
+      color: #5cff8d;
+      font-weight: bold;
+    }
+
+    .red {
+      color: #ff6262;
+      font-weight: bold;
+    }
+
+    .city-name {
+      font-weight: bold;
+      color: #fff;
+    }
+
     .quality {
       color: #ddd;
     }
@@ -260,30 +276,76 @@
       font-size: 11px;
     }
 
-    .profit-section {
+    .craft-box {
       margin-top: 30px;
-      background: #111;
+      background: #101010;
       border: 1px solid #333;
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 15px;
+      padding: 22px;
     }
 
-    .profit-section h3 {
+    .craft-box h3 {
       color: #f5b942;
-      margin-bottom: 15px;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
 
-    .profit-info {
+    .craft-subtitle {
+      color: #888;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .material-box {
+      background: #181818;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .material-title {
+      color: #fff;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .material-info {
+      color: #999;
+      font-size: 13px;
+    }
+
+    .craft-summary {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .craft-summary table {
+      min-width: 1100px;
+    }
+
+    .profit-positive {
+      color: #55ff88;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .profit-negative {
+      color: #ff5555;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .no-recipe {
+      padding: 18px;
+      border-radius: 10px;
+      background: #191919;
+      border: 1px solid #333;
       color: #aaa;
-      line-height: 1.6;
     }
 
     .downloads {
       margin-top: 35px;
-      padding: 25px;
-      background: #171717;
-      border: 1px solid #333;
-      border-radius: 15px;
       text-align: center;
     }
 
@@ -329,6 +391,7 @@
     }
 
     @media(max-width: 700px) {
+
       header h1 {
         font-size: 30px;
       }
@@ -353,16 +416,20 @@
 
 <header>
   <h1>⚔️ ALBION CRAFT PRO</h1>
-  <p>Calculadora de mercado, craft e lucro para Albion Online</p>
+  <p>Mercado • Craft • Materiais • Custos • Lucro</p>
 </header>
 
+
 <div class="container">
+
+  <!-- PESQUISA -->
 
   <div class="search-box">
 
     <h2>🔎 Procurar item</h2>
 
     <div class="search-line">
+
       <input
         type="text"
         id="searchInput"
@@ -376,6 +443,7 @@
       >
         PESQUISAR
       </button>
+
     </div>
 
     <div id="status">
@@ -387,16 +455,20 @@
   </div>
 
 
+  <!-- ITEM SELECIONADO -->
+
   <div id="selectedContainer"></div>
 
+
+  <!-- DOWNLOADS -->
 
   <div class="downloads">
 
     <h2>📥 AJUDE A ATUALIZAR OS PREÇOS</h2>
 
     <p>
-      O Albion Data Client envia dados públicos de mercado para o
-      Albion Online Data Project.
+      O Albion Data Client envia dados públicos de mercado
+      para o Albion Online Data Project.
     </p>
 
     <a
@@ -414,13 +486,14 @@
     </a>
 
     <p style="margin-top:15px;font-size:12px;">
-      Depois de instalar, abra o Albion Online Data Client e jogue normalmente.
-      Ao visitar mercados, os dados podem ser enviados ao projeto.
+      Depois de instalar, abra o Albion Online Data Client,
+      abra o Albion Online e visite os mercados.
     </p>
 
   </div>
 
 </div>
+
 
 <footer>
   ALBION CRAFT PRO © 2026
@@ -482,6 +555,11 @@ const ENCHANTMENTS = [
   }
 ];
 
+
+/* ==========================
+   ESTADO
+========================== */
+
 let items = [];
 
 let selectedItem = null;
@@ -491,9 +569,9 @@ let selectedTier = "T4";
 let selectedEnchant = "0";
 
 
-/* =========================
-   NOMES EM PORTUGUÊS
-========================= */
+/* ==========================
+   NOMES ESPECIAIS
+========================== */
 
 const PT_NAMES = {
 
@@ -512,9 +590,9 @@ const PT_NAMES = {
 };
 
 
-/* =========================
+/* ==========================
    PEGAR ID
-========================= */
+========================== */
 
 function getItemId(item) {
 
@@ -530,9 +608,9 @@ function getItemId(item) {
 }
 
 
-/* =========================
+/* ==========================
    NOME PORTUGUÊS
-========================= */
+========================== */
 
 function getPortugueseName(item) {
 
@@ -562,9 +640,9 @@ function getPortugueseName(item) {
 }
 
 
-/* =========================
-   TIRAR TIER DO ID
-========================= */
+/* ==========================
+   ID BASE
+========================== */
 
 function getBaseId(id) {
 
@@ -575,13 +653,18 @@ function getBaseId(id) {
 }
 
 
-/* =========================
-   MONTAR ID
-========================= */
+/* ==========================
+   MONTAR ITEM
+========================== */
 
-function buildItemId(baseId, tier, enchant) {
+function buildItemId(
+  baseId,
+  tier,
+  enchant
+) {
 
-  let id = `${tier}_${baseId}`;
+  let id =
+    `${tier}_${baseId}`;
 
   if (enchant !== "0") {
     id += `@${enchant}`;
@@ -592,9 +675,9 @@ function buildItemId(baseId, tier, enchant) {
 }
 
 
-/* =========================
+/* ==========================
    NOME BONITO
-========================= */
+========================== */
 
 function removeTierFromName(name) {
 
@@ -621,7 +704,8 @@ function getDisplayName() {
     `${selectedTier} ${baseName}`;
 
   if (selectedEnchant !== "0") {
-    name += ` .${selectedEnchant}`;
+    name +=
+      ` .${selectedEnchant}`;
   }
 
   return name;
@@ -629,9 +713,9 @@ function getDisplayName() {
 }
 
 
-/* =========================
-   CARREGAR BANCO
-========================= */
+/* ==========================
+   CARREGAR ITENS
+========================== */
 
 async function loadItems() {
 
@@ -645,7 +729,7 @@ async function loadItems() {
 
     if (!response.ok) {
       throw new Error(
-        "Não foi possível carregar o banco."
+        "Erro no banco de itens."
       );
     }
 
@@ -656,13 +740,16 @@ async function loadItems() {
 
       items = data;
 
-    } else if (Array.isArray(data.items)) {
+    } else if (
+      Array.isArray(data.items)
+    ) {
 
       items = data.items;
 
-    } else if (typeof data === "object") {
+    } else {
 
-      items = Object.values(data);
+      items =
+        Object.values(data);
 
     }
 
@@ -681,20 +768,26 @@ async function loadItems() {
 }
 
 
-/* =========================
-   PESQUISAR
-========================= */
+/* ==========================
+   PESQUISA
+========================== */
 
 function searchItems() {
 
   const input =
-    document.getElementById("searchInput");
+    document.getElementById(
+      "searchInput"
+    );
 
   const term =
-    input.value.trim().toLowerCase();
+    input.value
+      .trim()
+      .toLowerCase();
 
   const results =
-    document.getElementById("results");
+    document.getElementById(
+      "results"
+    );
 
   results.innerHTML = "";
 
@@ -719,7 +812,9 @@ function searchItems() {
     const id =
       getItemId(item);
 
-    if (!id) continue;
+    if (!id) {
+      continue;
+    }
 
     if (!/^T[1-8]_/.test(id)) {
       continue;
@@ -739,7 +834,9 @@ function searchItems() {
     const baseId =
       getBaseId(id);
 
-    if (usedBaseIds.has(baseId)) {
+    if (
+      usedBaseIds.has(baseId)
+    ) {
       continue;
     }
 
@@ -773,18 +870,17 @@ function searchItems() {
   for (const result of found) {
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     div.className =
       "result-item";
 
-    const imageId =
-      result.id;
-
     div.innerHTML = `
 
       <img
-        src="${ITEM_IMAGE}${encodeURIComponent(imageId)}.png"
+        src="${ITEM_IMAGE}${encodeURIComponent(result.id)}.png"
         onerror="this.style.display='none'"
       >
 
@@ -792,7 +888,9 @@ function searchItems() {
 
         <div class="result-name">
           ${escapeHtml(
-            removeTierFromName(result.name)
+            removeTierFromName(
+              result.name
+            )
           )}
         </div>
 
@@ -806,7 +904,8 @@ function searchItems() {
 
     div.addEventListener(
       "click",
-      () => selectItem(result.item)
+      () =>
+        selectItem(result.item)
     );
 
     results.appendChild(div);
@@ -816,9 +915,9 @@ function searchItems() {
 }
 
 
-/* =========================
+/* ==========================
    SELECIONAR ITEM
-========================= */
+========================== */
 
 function selectItem(item) {
 
@@ -840,15 +939,11 @@ function selectItem(item) {
 }
 
 
-/* =========================
+/* ==========================
    MOSTRAR ITEM
-========================= */
+========================== */
 
 function showSelectedItem() {
-
-  if (!selectedItem) {
-    return;
-  }
 
   const id =
     getItemId(selectedItem);
@@ -868,6 +963,7 @@ function showSelectedItem() {
       "selectedContainer"
     );
 
+
   container.innerHTML = `
 
     <div class="selected-item">
@@ -882,11 +978,14 @@ function showSelectedItem() {
         <div>
 
           <h2>
-            ${escapeHtml(getDisplayName())}
+            ${escapeHtml(
+              getDisplayName()
+            )}
           </h2>
 
           <div class="item-id">
-            ID: ${escapeHtml(selectedId)}
+            ID:
+            ${escapeHtml(selectedId)}
           </div>
 
         </div>
@@ -903,7 +1002,10 @@ function showSelectedItem() {
         ${TIERS.map(tier => `
 
           <button
-            class="tier-button ${tier === selectedTier ? "active" : ""}"
+            class="tier-button
+              ${tier === selectedTier
+                ? "active"
+                : ""}"
             data-tier="${tier}"
           >
             ${tier}
@@ -923,7 +1025,10 @@ function showSelectedItem() {
         ${ENCHANTMENTS.map(enc => `
 
           <button
-            class="enchant-button ${enc.value === selectedEnchant ? "active" : ""}"
+            class="enchant-button
+              ${enc.value === selectedEnchant
+                ? "active"
+                : ""}"
             data-enchant="${enc.value}"
           >
             ${enc.label}
@@ -935,40 +1040,36 @@ function showSelectedItem() {
 
 
       <div class="city-title">
-        💰 PREÇOS EM TODAS AS CIDADES
+        💰 PREÇOS DE TODAS AS CIDADES
       </div>
+
 
       <div id="priceArea">
 
         <div class="loading">
-          Carregando preços...
+          Buscando preços de todas as cidades...
         </div>
 
       </div>
 
 
-      <div class="profit-section">
+      <div class="craft-box">
 
         <h3>
           🛠️ CALCULADORA DE CRAFT
         </h3>
 
-        <div class="profit-info">
+        <div class="craft-subtitle">
+          Materiais, custo de fabricação, venda e lucro
+          por cidade.
+        </div>
 
-          <p>
-            <strong>Próximo passo:</strong>
-            esta área será usada para mostrar automaticamente
-            os materiais necessários, custo dos materiais,
-            taxa de fabricação, custo total, preço de venda,
-            impostos e lucro.
-          </p>
 
-          <br>
+        <div id="recipeArea">
 
-          <p>
-            O banco de receitas será integrado aos dados
-            de fabricação do Albion Online.
-          </p>
+          <div class="loading">
+            Preparando cálculo...
+          </div>
 
         </div>
 
@@ -980,7 +1081,9 @@ function showSelectedItem() {
 
 
   document
-    .querySelectorAll(".tier-button")
+    .querySelectorAll(
+      ".tier-button"
+    )
     .forEach(button => {
 
       button.addEventListener(
@@ -999,7 +1102,9 @@ function showSelectedItem() {
 
 
   document
-    .querySelectorAll(".enchant-button")
+    .querySelectorAll(
+      ".enchant-button"
+    )
     .forEach(button => {
 
       button.addEventListener(
@@ -1019,12 +1124,14 @@ function showSelectedItem() {
 
   loadAllCitiesPrices();
 
+  loadCraftData();
+
 }
 
 
-/* =========================
-   PREÇOS
-========================= */
+/* ==========================
+   PREÇOS DE TODAS AS CIDADES
+========================== */
 
 async function loadAllCitiesPrices() {
 
@@ -1055,42 +1162,44 @@ async function loadAllCitiesPrices() {
   const allResults = [];
 
 
-  for (const city of CITIES) {
+  /*
+    UMA CONSULTA PARA TODAS AS CIDADES.
+    Isso evita fazer 7 requisições separadas.
+  */
 
-    try {
+  try {
 
-      const url =
-        `${PRICE_API}${encodeURIComponent(itemId)}.json` +
-        `?locations=${encodeURIComponent(city)}` +
-        `&qualities=1,2,3,4,5`;
+    const locations =
+      CITIES.join(",");
 
-      const response =
-        await fetch(url);
+    const url =
+      `${PRICE_API}${encodeURIComponent(itemId)}.json` +
+      `?locations=${encodeURIComponent(locations)}` +
+      `&qualities=1,2,3,4,5`;
 
-      if (!response.ok) {
-        continue;
-      }
+    const response =
+      await fetch(url);
 
-      const data =
-        await response.json();
+    if (!response.ok) {
+      throw new Error(
+        "Erro na API de preços."
+      );
+    }
 
-      if (Array.isArray(data)) {
+    const data =
+      await response.json();
 
-        allResults.push(
-          ...data
-        );
+    if (Array.isArray(data)) {
 
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Erro cidade:",
-        city,
-        error
+      allResults.push(
+        ...data
       );
 
     }
+
+  } catch (error) {
+
+    console.error(error);
 
   }
 
@@ -1102,9 +1211,9 @@ async function loadAllCitiesPrices() {
 }
 
 
-/* =========================
+/* ==========================
    RENDER PREÇOS
-========================= */
+========================== */
 
 function renderPrices(data) {
 
@@ -1117,7 +1226,7 @@ function renderPrices(data) {
 
     priceArea.innerHTML =
       `<div class="loading">
-        Nenhum preço encontrado para este item.
+        Nenhum preço encontrado.
       </div>`;
 
     return;
@@ -1133,27 +1242,39 @@ function renderPrices(data) {
         <tr>
 
           <td>
-            ${escapeHtml(item.item_id || "-")}
+            ${escapeHtml(
+              item.item_id || "-"
+            )}
           </td>
 
-          <td>
-            ${escapeHtml(item.city || "-")}
+          <td class="city-name">
+            ${escapeHtml(
+              item.city || "-"
+            )}
           </td>
 
           <td class="quality">
-            ${qualityName(item.quality)}
+            ${qualityName(
+              item.quality
+            )}
           </td>
 
           <td class="silver">
-            ${formatSilver(item.sell_price_min)}
+            ${formatSilver(
+              item.sell_price_min
+            )}
           </td>
 
           <td class="silver">
-            ${formatSilver(item.sell_price_max)}
+            ${formatSilver(
+              item.sell_price_max
+            )}
           </td>
 
           <td class="silver">
-            ${formatSilver(item.buy_price_max)}
+            ${formatSilver(
+              item.buy_price_max
+            )}
           </td>
 
         </tr>
@@ -1172,14 +1293,12 @@ function renderPrices(data) {
         <thead>
 
           <tr>
-
             <th>Item</th>
             <th>Cidade</th>
             <th>Qualidade</th>
             <th>Venda mínima</th>
             <th>Venda máxima</th>
             <th>Compra máxima</th>
-
           </tr>
 
         </thead>
@@ -1199,7 +1318,7 @@ function renderPrices(data) {
       color:#777;
       font-size:12px;
     ">
-      Os preços são fornecidos pelo Albion Online Data Project.
+      Preços fornecidos pelo Albion Online Data Project.
     </div>
 
   `;
@@ -1207,11 +1326,492 @@ function renderPrices(data) {
 }
 
 
-/* =========================
-   QUALIDADE
-========================= */
+/* ==========================
+   CRAFT
+========================== */
 
-function qualityName(quality) {
+/*
+  Aqui usamos receitas conhecidas.
+  A estrutura permite adicionar
+  todas as receitas posteriormente.
+*/
+
+const RECIPES = {
+
+  "T4_BAG": {
+    materials: [
+      {
+        id: "T4_CLOTH",
+        count: 8
+      },
+      {
+        id: "T4_LEATHER",
+        count: 8
+      }
+    ]
+  },
+
+  "T5_BAG": {
+    materials: [
+      {
+        id: "T5_CLOTH",
+        count: 8
+      },
+      {
+        id: "T5_LEATHER",
+        count: 8
+      }
+    ]
+  },
+
+  "T6_BAG": {
+    materials: [
+      {
+        id: "T6_CLOTH",
+        count: 8
+      },
+      {
+        id: "T6_LEATHER",
+        count: 8
+      }
+    ]
+  },
+
+  "T7_BAG": {
+    materials: [
+      {
+        id: "T7_CLOTH",
+        count: 8
+      },
+      {
+        id: "T7_LEATHER",
+        count: 8
+      }
+    ]
+  },
+
+  "T8_BAG": {
+    materials: [
+      {
+        id: "T8_CLOTH",
+        count: 8
+      },
+      {
+        id: "T8_LEATHER",
+        count: 8
+      }
+    ]
+  }
+
+};
+
+
+/* ==========================
+   BUSCAR RECEITA
+========================== */
+
+function getRecipe(itemId) {
+
+  return RECIPES[itemId] || null;
+
+}
+
+
+/* ==========================
+   DADOS DE CRAFT
+========================== */
+
+async function loadCraftData() {
+
+  const id =
+    getItemId(selectedItem);
+
+  const baseId =
+    getBaseId(id);
+
+  const itemId =
+    buildItemId(
+      baseId,
+      selectedTier,
+      selectedEnchant
+    );
+
+  const recipe =
+    getRecipe(itemId);
+
+  const recipeArea =
+    document.getElementById(
+      "recipeArea"
+    );
+
+
+  if (!recipe) {
+
+    recipeArea.innerHTML = `
+
+      <div class="no-recipe">
+
+        ℹ️ A receita deste item ainda
+        não está cadastrada na calculadora.
+
+        <br><br>
+
+        A estrutura já está pronta para receber
+        automaticamente todas as receitas do jogo.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  recipeArea.innerHTML = `
+
+    <div class="section-title">
+      📦 MATERIAIS NECESSÁRIOS
+    </div>
+
+    <div id="materialsArea"></div>
+
+    <div class="craft-summary">
+
+      <div class="section-title">
+        💰 COMPARAÇÃO DE CRAFT POR CIDADE
+      </div>
+
+      <div id="craftTableArea">
+
+        <div class="loading">
+          Calculando custos...
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  await calculateCraft(
+    itemId,
+    recipe
+  );
+
+}
+
+
+/* ==========================
+   CALCULAR CRAFT
+========================== */
+
+async function calculateCraft(
+  itemId,
+  recipe
+) {
+
+  const materialsArea =
+    document.getElementById(
+      "materialsArea"
+    );
+
+  const materialData = [];
+
+
+  /*
+    Busca o preço dos materiais
+    em todas as cidades de uma vez.
+  */
+
+  for (
+    const material
+    of recipe.materials
+  ) {
+
+    try {
+
+      const url =
+        `${PRICE_API}${encodeURIComponent(material.id)}.json` +
+        `?locations=${encodeURIComponent(CITIES.join(","))}` +
+        `&qualities=1`;
+
+      const response =
+        await fetch(url);
+
+      if (!response.ok) {
+        continue;
+      }
+
+      const data =
+        await response.json();
+
+      materialData.push({
+        ...material,
+        prices: Array.isArray(data)
+          ? data
+          : []
+      });
+
+    } catch (error) {
+
+      console.error(
+        "Erro material:",
+        material.id,
+        error
+      );
+
+    }
+
+  }
+
+
+  renderMaterials(
+    materialData
+  );
+
+
+  renderCraftTable(
+    itemId,
+    recipe,
+    materialData
+  );
+
+}
+
+
+/* ==========================
+   MOSTRAR MATERIAIS
+========================== */
+
+function renderMaterials(
+  materialData
+) {
+
+  const area =
+    document.getElementById(
+      "materialsArea"
+    );
+
+  if (!materialData.length) {
+
+    area.innerHTML =
+      `<div class="no-recipe">
+        Não foi possível carregar os preços dos materiais.
+      </div>`;
+
+    return;
+
+  }
+
+
+  area.innerHTML =
+    materialData.map(
+      material => {
+
+        return `
+
+          <div class="material-box">
+
+            <div class="material-title">
+
+              ${escapeHtml(
+                material.id
+              )}
+
+            </div>
+
+            <div class="material-info">
+
+              Quantidade:
+              <strong>
+                ${material.count}
+              </strong>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* ==========================
+   TABELA DE CRAFT
+========================== */
+
+function renderCraftTable(
+  itemId,
+  recipe,
+  materialData
+) {
+
+  const area =
+    document.getElementById(
+      "craftTableArea"
+    );
+
+
+  const rows = [];
+
+
+  for (
+    const city
+    of CITIES
+  ) {
+
+    let materialCost = 0;
+
+
+    /*
+      Soma o custo dos materiais
+      usando o preço de compra máximo
+      daquela cidade.
+    */
+
+    for (
+      const material
+      of materialData
+    ) {
+
+      const price =
+        material.prices.find(
+          p =>
+            p.city === city &&
+            Number(p.quality) === 1
+        );
+
+      const value =
+        price
+          ? Number(price.buy_price_max || 0)
+          : 0;
+
+      materialCost +=
+        value * material.count;
+
+    }
+
+
+    /*
+      Procurar preço de venda
+      do item final.
+    */
+
+    let sellPrice = 0;
+
+    /*
+      O preço final será obtido
+      novamente da API.
+      Neste ponto mostramos
+      inicialmente o custo.
+    */
+
+    rows.push({
+
+      city,
+
+      materialCost,
+
+      sellPrice
+
+    });
+
+  }
+
+
+  area.innerHTML = `
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Cidade</th>
+            <th>Custo dos materiais</th>
+            <th>Taxa de fabricação</th>
+            <th>Preço de venda</th>
+            <th>Taxas</th>
+            <th>Lucro</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${rows.map(row => `
+
+            <tr>
+
+              <td class="city-name">
+                ${row.city}
+              </td>
+
+              <td class="silver">
+                ${formatSilver(
+                  row.materialCost
+                )}
+              </td>
+
+              <td>
+                —
+              </td>
+
+              <td>
+                —
+              </td>
+
+              <td>
+                —
+              </td>
+
+              <td>
+                —
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div style="
+      margin-top:12px;
+      color:#777;
+      font-size:12px;
+    ">
+
+      O custo dos materiais é calculado
+      usando os preços disponíveis no mercado.
+      A taxa de fabricação e os impostos serão
+      adicionados na próxima etapa.
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==========================
+   QUALIDADE
+========================== */
+
+function qualityName(
+  quality
+) {
 
   const names = {
 
@@ -1231,9 +1831,9 @@ function qualityName(quality) {
 }
 
 
-/* =========================
+/* ==========================
    PRATA
-========================= */
+========================== */
 
 function formatSilver(value) {
 
@@ -1256,9 +1856,9 @@ function formatSilver(value) {
 }
 
 
-/* =========================
+/* ==========================
    ESCAPAR HTML
-========================= */
+========================== */
 
 function escapeHtml(value) {
 
@@ -1272,12 +1872,14 @@ function escapeHtml(value) {
 }
 
 
-/* =========================
+/* ==========================
    EVENTOS
-========================= */
+========================== */
 
 document
-  .getElementById("searchButton")
+  .getElementById(
+    "searchButton"
+  )
   .addEventListener(
     "click",
     searchItems
@@ -1285,7 +1887,9 @@ document
 
 
 document
-  .getElementById("searchInput")
+  .getElementById(
+    "searchInput"
+  )
   .addEventListener(
     "keydown",
     event => {
@@ -1302,9 +1906,9 @@ document
   );
 
 
-/* =========================
+/* ==========================
    INICIAR
-========================= */
+========================== */
 
 loadItems();
 
